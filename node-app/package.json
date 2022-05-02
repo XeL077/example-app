@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon src/index.js",
+    "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -14,6 +14,7 @@
     "dotenv": "^16.0.0",
     "koa": "^2.13.4",
     "koa-morgan": "^1.0.1",
+    "koa-router": "^10.1.1",
     "nodemon": "^2.0.15",
     "redis": "^4.0.6"
   }
