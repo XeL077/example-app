@@ -32,3 +32,22 @@ services:
          - REDIS_PORT=6379
         env_file:
          - .env
+
+    nginx-web-proxy-server:
+        build: ./frontend
+        container_name: nginx-web-proxy-server
+        ports:
+         - "80:80"
+        depends_on:
+         - node-app
+        networks:
+         - app-net
+        volumes:
+         - ./frontend/html:/usr/share/nginx/html
+        environment:
+         - NGINX_HOST=localhost
+         - NGINX_PORT=80
+
+networks:
+  app-net:
+    external: true
