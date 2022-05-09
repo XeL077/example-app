@@ -7,13 +7,6 @@
 <body>
     <h1> test </h1>
     <div><img src="/static/img/test.jpg" /></div>
-    <script>
-        fetch('/api/test').then((data) => {
-            if(data.status !== 404)
-            console.log(data.status);
-        }).catch(err =>{
-            console.error(err);
-        })
-    </script>
+    <script src="/static/index.js"></script>
 </body>
 </html>

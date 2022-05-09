@@ -16,7 +16,7 @@ const redisClient = createClient({
 await redisClient.connect();
 redisClient.set('test', 'dsddfd');
 
-router.get('/test', async (ctx) => {
+router.get('/api/test', async (ctx) => {
     ctx.body = {data: 'ok'};
     console.log('ok');
 })

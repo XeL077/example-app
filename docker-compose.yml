@@ -35,7 +35,6 @@ services:
 
     nginx-web-proxy-server:
         build: ./frontend
-        container_name: nginx-web-proxy-server
         ports:
          - "80:80"
         depends_on:
@@ -44,6 +43,7 @@ services:
          - app-net
         volumes:
          - ./frontend/html:/usr/share/nginx/html
+         - ./frontend/.nginx/nginx.conf:/etc/nginx/nginx.conf:ro
         environment:
          - NGINX_HOST=localhost
          - NGINX_PORT=80

@@ -1,14 +1,17 @@
 Koa - react app.
 docker network create app-net
 
-docker-compose up -d
 
+
+nginx -s reload
 
 apt-get update
 apt-get install nano
 
 
 sudo docker-compose up -d nginx-web-proxy-server
+
+sudo docker exec -it example-app_nginx-web-proxy-server sh
 
 sudo docker build -t koa-backend .
 
@@ -17,21 +20,9 @@ sudo docker container run --name koa-backend --rm -p 4444:8888 -v /home/alexande
 sudo docker container stop --name koa-backend
 
 
-sudo docker exec -it  613dba64b21b sh
-
-
-sudo docker exec -it 3ae61cf2fa75 sh
-
-
 План:
 1) Сделать моно-репозиторий для frontend и backend (api)
 2) Проксировать статику через nginx
-
-
-
-         - ./frontend/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-         - ./frontend/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
-         - ./frontend/nginx/nginx.vh.default.conf:/etc/nginx/nginx.vh.default.conf:ro
 
 
     nginx-web-proxy-server:
@@ -45,3 +36,41 @@ sudo docker exec -it 3ae61cf2fa75 sh
        - NGINX_HOST=localhost
        - NGINX_PORT=8080
       command: [nginx-debug, '-g', 'daemon off;']
+
+
+
+
+worker_processes 4;
+
+events { worker_connections 1024; }
+
+http {
+server {
+listen 80;
+server_name webapp.docker.localhost;
+access_log /var/log/nginx/access.log;
+error_log /var/log/nginx/error.log;
+root /usr/share/nginx/html;
+
+        location / {
+            index index.html;
+            try_files $uri /index.html;
+        }
+
+        location /api/ {
+                   proxy_set_header Host $host;
+                    proxy_set_header X-Real-IP $remote_addr;
+                    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                    proxy_set_header X-Forwarded-Proto $scheme;
+                    proxy_pass http://localhost:8080;
+        }
+
+        location /static/ {
+            try_files $uri $uri/;
+        }
+
+        location /static/img/ {
+            try_files $uri /static/img/404.jpg;
+        }
+    }
+}

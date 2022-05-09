@@ -1,9 +1,9 @@
 FROM nginx:alpine
 
-COPY ./.nginx/nginx.conf /etc/nginx/nginx.conf
-
 ## Remove default nginx index page
-RUN rm -rf /usr/share/nginx/html/*
+#RUN rm -rf /usr/share/nginx/html/*
+
+RUN ["apk", "add", "nano"]
 
 # Copy from the stahg
 #COPY --from=builder /react-ui/build /usr/share/nginx/html
