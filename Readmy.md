@@ -11,7 +11,7 @@ apt-get install nano
 
 sudo docker-compose up -d nginx-web-proxy-server
 
-sudo docker exec -it example-app_nginx-web-proxy-server sh
+sudo docker exec -it 5b96f3690b8e sh
 
 sudo docker build -t koa-backend .
 

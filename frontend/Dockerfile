@@ -8,6 +8,6 @@ RUN ["apk", "add", "nano"]
 # Copy from the stahg
 #COPY --from=builder /react-ui/build /usr/share/nginx/html
 
-EXPOSE 3000 80
+EXPOSE 80
 
 ENTRYPOINT ["nginx", "-g", "daemon off;"]

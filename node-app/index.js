@@ -25,7 +25,7 @@ router.get('/api/test', async (ctx) => {
 server
     .use(logger('tiny'))
     .use(router.routes())
-    .listen(process.env.PORT || 8080, () => {
+    .listen(process.env.PORT, () => {
         console.log(`server start listening on port ${process.env.PORT}`);
         redisClient.ping().then(status => console.log(status));
 });

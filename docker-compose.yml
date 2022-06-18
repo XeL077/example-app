@@ -25,9 +25,9 @@ services:
         volumes:
          - ./node-app/:/usr/bin/node-app
         ports:
-         - "8080:8080"
+         - "4000:4000"
         environment:
-         - PORT=8080
+         - PORT=4000
          - REDIS_HOST=node-app-redis
          - REDIS_PORT=6379
         env_file:
@@ -43,7 +43,7 @@ services:
          - app-net
         volumes:
          - ./frontend/html:/usr/share/nginx/html
-         - ./frontend/.nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+         - ./frontend/.nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
         environment:
          - NGINX_HOST=localhost
          - NGINX_PORT=80
